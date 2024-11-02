@@ -1,0 +1,196 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif; /* Use a clear, modern font */
+}
+
+body {
+  min-height: 100vh;
+  background: #f0f8ff; /* Light background for a softer look */
+}
+
+.banner {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(22, 31, 54, 0.75)),
+    url('images/fansat.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.navbar {
+  width: 85%;
+  margin: auto;
+  padding: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.logo {
+  width: 100px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.1) rotate(5deg);
+  opacity: 0.9;
+}
+
+.navbar ul {
+  display: flex;
+  align-items: center;
+}
+
+.navbar ul li {
+  list-style: none;
+  margin: 0 20px;
+  position: relative;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 10px;
+}
+
+.navbar ul li::after {
+  content: '';
+  height: 3px;
+  width: 0;
+  background: #009688;
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  transition: width 0.5s;
+}
+
+.navbar ul li:hover::after {
+  width: 100%;
+}
+
+.go-back {
+  display: inline-block;
+  background-color: transparent;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 14px;
+  margin-left: 20px;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.go-back::after {
+  content: '';
+  height: 3px;
+  width: 0;
+  background: #009688;
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  transition: width 0.5s;
+}
+
+.go-back:hover {
+  color: #009688;
+}
+
+.go-back:hover::after {
+  width: 100%;
+}
+
+.content {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quiz-container {
+  background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+  border-radius: 15px;
+  padding: 30px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Softer shadow */
+}
+
+#question-count,
+#timer-display {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333; /* Darker text for readability */
+}
+
+.question {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.options {
+  margin-bottom: 20px;
+}
+
+.option-btn {
+  background: #6ab04c; /* Soft green for buttons */
+  color: #fff;
+  border: none;
+  padding: 15px 20px;
+  margin: 10px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  font-size: 18px;
+}
+
+.option-btn:hover {
+  background: #5f9b3a; /* Slightly darker green on hover */
+  transform: scale(1.05);
+}
+
+.submit-btn {
+  background: #007bff; /* Blue for submit button */
+  color: #fff;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.submit-btn:hover {
+  background: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05);
+}
+
+.result {
+  font-size: 20px;
+  margin-top: 20px;
+  text-align: center; /* Center the result text */
+}
+
+.restart-btn {
+  background: #ff6b81; /* Soft coral for restart button */
+  color: #fff;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.restart-btn:hover {
+  background: #ff4757; /* Darker coral on hover */
+}

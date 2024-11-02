@@ -1,0 +1,132 @@
+body {
+  min-height: 100vh;
+  padding: 20px; /* Add some padding around the body */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(22, 31, 54, 0.75)),
+    url('images/background.3.jpg');
+  background-size: cover; /* Ensure the background covers the entire body */
+  background-position: center; /* Center the background image */
+}
+
+.article {
+  max-width: 800px; /* Limit width for better readability */
+  margin: auto;
+  background: rgb(255, 255, 255); /* White background for the article */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Softer shadow */
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333; /* Darker text for headings */
+}
+
+h2 {
+  font-size: 24px;
+  margin: 15px 0;
+  color: #007bff; /* Color for subheadings */
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.6; /* Improved line spacing for readability */
+  color: #555; /* Dark gray for body text */
+  margin-bottom: 15px;
+}
+
+.go-back {
+  display: inline-block;
+  background-color: transparent;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 14px;
+  margin-left: 20px;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.go-back::after {
+  content: '';
+  height: 3px;
+  width: 0;
+  background: #009688;
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  transition: width 0.5s;
+}
+
+.go-back:hover {
+  color: #009688;
+}
+
+.go-back:hover::after {
+  width: 100%;
+}
+.small-photo {
+  width: 100px; /* Small photo width */
+  position: absolute; /* Position it to the side */
+  top: 20px; /* Adjust as needed */
+  right: 20px; /* Adjust as needed */
+  cursor: pointer; /* Change cursor to pointer */
+  transition: transform 0.2s; /* Smooth hover effect */
+}
+
+.small-photo:hover {
+  transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+.full-screen {
+  display: none; /* Hidden by default */
+  position: fixed; /* Position it fixed */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+  z-index: 1000; /* On top of everything */
+  justify-content: center; /* Center the image */
+  align-items: center; /* Center the image */
+}
+
+.full-screen-content {
+  display: flex; /* Flex to layout image and comment section */
+  flex-direction: column; /* Stack vertically */
+  align-items: center; /* Center items */
+}
+
+.comment-section {
+  margin-top: 20px; /* Space between image and comment section */
+  color: white; /* Text color */
+  text-align: center; /* Center text */
+}
+
+#commentInput {
+  width: 100%;
+  max-width: 400px; /* Limit width */
+  margin: 10px 0; /* Space around */
+}
+
+#submitComment {
+  background-color: #009688; /* Button color */
+  color: white; /* Text color */
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px; /* Rounded corners */
+}
+
+#submitComment:hover {
+  background-color: #00796b; /* Darker on hover */
+}
+
+#commentsDisplay {
+  margin-top: 15px; /* Space above comments */
+  max-width: 400px; /* Limit width */
+}
+
+#commentsDisplay p {
+  margin: 5px 0; /* Space between comments */
+}

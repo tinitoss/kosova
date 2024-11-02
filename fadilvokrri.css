@@ -1,0 +1,110 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh; 
+}
+
+.banner {
+  text-align: center; 
+    padding: 20px;
+  background-image: url('images/FadilVokrri.jpg');
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 10px 20px; 
+  background-color: rgba(
+    65,
+    65,
+    65,
+    0.4
+  );
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.navbar img.logo {
+  height: 50px; /* Set logo height */
+}
+
+.navbar ul {
+  list-style-type: none; /* Remove bullet points */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+}
+
+.navbar li {
+  display: inline; /* Inline list items */
+  margin: 0 10px; /* Space between items */
+}
+
+.navbar a {
+  text-decoration: none; /* Remove underline from links */
+  color: #fff; /* Change link color to white */
+  font-weight: bold; /* Bold text for links */
+}
+
+.navbar a:hover {
+  color: #007bff; /* Change color on hover */
+}
+
+.fotografi {
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Align items vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  margin: 20px 0; /* Space above and below */
+}
+
+.fotografi img {
+  width: 100px; /* Adjust width to make images smaller */
+  height: auto; /* Maintain aspect ratio */
+  margin: 5px 0; /* Add some space between images */
+}
+
+.content {
+  max-width: 800px; /* Max width for content */
+  margin: 0 auto; /* Center the content */
+  padding: 20px; /* Padding inside content */
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.content-text {
+  line-height: 1.6; /* Improved readability */
+}
+
+h1 {
+  margin-bottom: 20px; /* Space below heading */
+  box-shadow: 0 2px 5px white; /* Optional shadow for heading */
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block; /* Inline block for tooltip */
+}
+
+.tooltip .tooltip {
+  visibility: hidden; /* Hidden by default */
+  width: 120px; /* Tooltip width */
+  background-color: #555; /* Tooltip background */
+  color: #fff; /* Tooltip text color */
+  text-align: center; /* Center text in tooltip */
+  border-radius: 5px; /* Rounded corners */
+  padding: 5px; /* Padding inside tooltip */
+  position: absolute; /* Positioning */
+  z-index: 1; /* On top */
+  bottom: 100%; /* Position above the tooltip element */
+  left: 50%; /* Center horizontally */
+  margin-left: -60px; /* Offset for centering */
+}
+
+.tooltip:hover .tooltip {
+  visibility: visible; /* Show tooltip on hover */
+}

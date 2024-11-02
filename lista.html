@@ -1,0 +1,124 @@
+<head></head>
+<body>
+  <div class="banner">
+    <div class="navbar">
+      <link rel="stylesheet" href="lista.css" />
+      <ul>
+        <a href="historiku.html" class="go-back">
+          <i class="fas fa-arrow-left"></i> Go Back
+        </a>
+      </ul>
+    </div>
+  </div>
+
+  <div class="article">
+    <h1>Futbolli në Kosovë pas Pranimit në UEFA: Një Epokë e Re</h1>
+
+    <p>
+      Pas pranimit të Kosovës në UEFA në vitin 2016, futbolli kosovar ka filluar
+      një epokë të re, me shumë arritje dhe zhvillime që e kanë fuqizuar sportin
+      në vend. Kjo ngjarje historike jo vetëm që hapi dyert për pjesëmarrjen në
+      kompetita ndërkombëtare, por gjithashtu forcoi identitetin kombëtar dhe
+      ndjenjën e bashkësisë përmes sportit.
+    </p>
+
+    <h2>Kualifikimet dhe Performancat</h2>
+    <p>
+      Pas pranimit, ekipi kombëtar i Kosovës ka filluar të marrë pjesë në
+      kualifikimet për turne të rëndësishëm, si Kampionati Evropian dhe
+      Kampionati Botëror. Gjatë këtyre ndeshjeve, ekipi ka arritur rezultate të
+      jashtëzakonshme, duke surprizuar shumë skuadra më të forta. Disa ndeshje
+      janë shënuar si momente historike, ku ekipi ka treguar një lojë të fortë
+      dhe të qëndrueshme.
+    </p>
+
+    <h2>Rritja e Njohjes Ndërkombëtare</h2>
+    <p>
+      Futbolli kosovar ka fituar gjithnjë e më shumë njohje në arenën
+      ndërkombëtare. Lojtarët kosovarë, shumë prej të cilëve luajnë në liga të
+      njohura evropiane, kanë sjellë përvojë dhe talent në ekipin kombëtar. Kjo
+      ka rritur cilësinë e lojës dhe ka ndihmuar në ndërtimin e një identiteti
+      të fortë për futbollin në Kosovë.
+    </p>
+
+    <h2>Ndihma nga Diaspora</h2>
+    <p>
+      Një faktor i rëndësishëm në suksesin e ekipit kombëtar ka qenë mbështetja
+      nga diaspora. Shumë lojtarë me origjinë nga Kosova që luajnë në liga të
+      njohura botërore janë angazhuar për të përfaqësuar vendin e tyre, duke
+      sjellë me vete përvojë dhe njohuri. Ky angazhim ka ndihmuar në forcimin e
+      skuadrës dhe ka rritur shpresat për kualifikim në kompetita të mëdha.
+    </p>
+
+    <h2>Ndjenja e Identitetit Kombëtar</h2>
+    <p>
+      Pranimi në UEFA ka forcuar ndjenjën e identitetit kombëtar mes qytetarëve
+      të Kosovës. Futbolli ka qenë gjithmonë një burim krenarie dhe bashkësie,
+      dhe tani, më shumë se kurrë, njerëzit janë të bashkuar përkrah ekipit
+      kombëtar. Ndeshjet janë shndërruar në ngjarje sociale, ku tifozët
+      bashkohen për të mbështetur skuadrën e tyre.
+    </p>
+
+    <h2>Përfundim</h2>
+    <p>
+      E ardhmja e futbollit në Kosovë duket e ndritur. Me përkushtimin e
+      lojtarëve, trajnerëve dhe mbështetjes së tifozëve, ekipi kombëtar ka
+      potencialin për t'u rritur edhe më shumë në arenën ndërkombëtare. Kosova
+      ka treguar se është një forcë në zhvillim dhe do të vazhdojë të punojë për
+      sukses në vitet në vazhdim. Një epokë e re ka filluar, dhe tifozët e
+      futbollit në Kosovë e presin me padurim atë që vjen.
+    </p>
+  </div>
+  <!-- Small photo -->
+  <img
+    src="images/formacioni1.png"
+    alt="Small Photo"
+    class="small-photo"
+    id="smallPhoto"
+  />
+
+  <!-- Full-screen overlay -->
+  <div class="full-screen" id="fullScreenOverlay">
+    <div class="full-screen-content">
+      <img src="images/formacioni.jpg" alt="Full Photo" id="fullScreenImage" />
+      <div class="comment-section" id="commentSection">
+        <h3>Leave a Comment:</h3>
+        <textarea
+          id="commentInput"
+          rows="3"
+          placeholder="Formacioni i pare i Kombëtares se Kosoves"
+        ></textarea>
+        <button id="submitComment">Submit</button>
+        <div id="commentsDisplay"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const smallPhoto = document.getElementById('smallPhoto');
+    const fullScreenOverlay = document.getElementById('fullScreenOverlay');
+    const submitCommentButton = document.getElementById('submitComment');
+    const commentInput = document.getElementById('commentInput');
+    const commentsDisplay = document.getElementById('commentsDisplay');
+
+    smallPhoto.addEventListener('click', () => {
+      fullScreenOverlay.style.display = 'flex'; // Show full screen
+    });
+
+    fullScreenOverlay.addEventListener('click', () => {
+      fullScreenOverlay.style.display = 'none'; // Hide on click
+      commentInput.value = ''; // Clear the comment input on close
+      commentsDisplay.innerHTML = ''; // Clear comments when closing
+    });
+
+    submitCommentButton.addEventListener('click', () => {
+      const commentText = commentInput.value;
+      if (commentText) {
+        const commentElement = document.createElement('p');
+        commentElement.textContent = commentText;
+        commentsDisplay.appendChild(commentElement);
+        commentInput.value = ''; // Clear input after submission
+      }
+    });
+  </script>
+</body>

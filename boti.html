@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TinitosChat</title>
+    <style>
+      body {
+        background: linear-gradient(
+          to bottom,
+          rgba(135, 206, 250, 0.8),
+          rgba(0, 0, 0, 0.9)
+        ); /* Light blue fading to dark */
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .chat-container {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        width: 400px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .chat-box {
+        height: 400px;
+        overflow-y: auto;
+        padding: 10px;
+        border-bottom: 2px solid #eaeaea;
+        flex-grow: 1;
+      }
+
+      .message {
+        display: flex;
+        margin: 5px 0;
+      }
+
+      .user {
+        justify-content: flex-end;
+      }
+
+      .bot {
+        justify-content: flex-start;
+      }
+
+      .message-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+
+      .user-message {
+        background-color: #4caf50; /* Green for user */
+        color: white;
+        border-radius: 10px;
+        padding: 10px;
+        max-width: 75%;
+        margin-left: 10px;
+      }
+
+      .bot-message {
+        background-color: #f44336; /* Red for bot */
+        color: white;
+        border-radius: 10px;
+        padding: 10px;
+        max-width: 75%;
+        margin-right: 10px;
+      }
+
+      .typing-indicator {
+        display: flex;
+      }
+
+      .typing-indicator div {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ccc;
+        margin: 0 2px;
+        animation: bounce 0.6s infinite alternate;
+      }
+
+      .typing-indicator div:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .typing-indicator div:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .suggestion-box {
+        margin: 10px;
+      }
+
+      .suggestion {
+        background-color: #e0e0e0;
+        padding: 8px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px 0;
+      }
+
+      .user-input {
+        width: calc(100% - 90px);
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .send-button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+
+      .send-button:hover {
+        background-color: #45a049;
+      }
+
+      .go-back {
+        display: inline-block;
+        background-color: transparent;
+        color: #fff;
+        padding: 5px 10px;
+        font-size: 14px;
+        margin-left: 20px;
+        text-decoration: none;
+        position: relative;
+        transition: color 0.3s;
+      }
+
+      .go-back::after {
+        content: '';
+        height: 3px;
+        width: 0;
+        background: #009688;
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        transition: width 0.5s;
+      }
+
+      .go-back:hover {
+        color: #009688;
+      }
+
+      .go-back:hover::after {
+        width: 100%;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="chat-container">
+      <div id="chat-box" class="chat-box"></div>
+      <ul>
+        <li>
+          <a href="index.html" class="active"
+            ><i class="fas fa-arrow-left"></i> Go Back to the Home page</a
+          >
+        </li>
+      </ul>
+
+      <div id="suggestion-box" class="suggestion-box"></div>
+      <input
+        type="text"
+        id="user-input"
+        class="user-input"
+        placeholder="Click a suggestion below!"
+        readonly
+      />
+      <button id="send-button" class="send-button">Send</button>
+    </div>
+    <script>
+      const randomQuestions = [
+        'Cila është ngjyra e parë e ekipit?',
+        'Cili është lojtari më i njohur i Kosovës?',
+        'Cila është historia e ekipit kombëtar?',
+        'Sa ndeshje ka luajtur ekipi i Kosovës deri tani?',
+        'Cili është simboli i ekipit?',
+        'Kur është formuar ekipi kombëtar i Kosovës?',
+        'Cila është renditja e fundit e FIFA-s për Kosovën?',
+        'Cila është ndeshja më e mirë e ekipit?',
+        'Sa gola ka shënuar ekipi i Kosovës në ndeshje zyrtare?',
+        'Cili është himni i ekipit kombëtar të Kosovës?',
+        'Cili është stadiumi më i madh në Kosovë?',
+        'Kush është trajneri aktual i ekipit kombëtar?',
+        'Cila është ngjyra e dytë e ekipit?',
+        'Cila është fitore e parë historike e Kosovës?',
+        'Cili është lojtari më i ri që ka luajtur për Kosovën?',
+        'Cila është ndeshja më e vështirë për Kosovën?',
+        'Cili është numri i tifozëve në një ndeshje mesatare?',
+        'Cili është vendi i fundit ku ka luajtur Kosova?',
+        'Cila është tradita më e njohur në futbollin e Kosovës?',
+        'Cila është organizata që mbështet futbollin në Kosovë?',
+        'Cili është numri i titujve të fituar nga Kosova në nivel klubesh?',
+        'Cili është lojtari që ka shënuar më shumë gola për Kosovën?',
+        'Cila është ndihma më e madhe për zhvillimin e futbollit në Kosovë?',
+        'Cili është klubi më i njohur në Kosovë?',
+        'Cili është rivaliteti më i njohur në futbollin kosovar?',
+        'Cila është forma më e njohur e lojës në Kosovë?',
+        'Cili është stadiumi që ka më shumë kapacitet?',
+        'Cili është lojtari që luan në një ligë të njohur evropiane?',
+        'Cila është sfida më e madhe për futbollin kosovar?',
+        'Cili është viti kur Kosova u anëtarësua në FIFA?',
+        'Cila është mënyra më e njohur e përgatitjes për ndeshje?',
+        'Cili është stili më i njohur i lojës së ekipit?',
+        'Cili është numri i përgjithshëm i ndeshjeve të luajtura nga Kosova?',
+        'Cili është lojtari që ka luajtur në ligën më të fortë evropiane?',
+        'Cili është emri i presidentit të FFK-së?',
+      ];
+
+      const correctAnswers = [
+        '2. Blu',
+        'Vedat Muriqi',
+        'Ekipi ka një histori të pasur dhe ka kaluar nëpër shumë sfida.',
+        'Ekipi ka luajtur shumë ndeshje deri tani.',
+        'Simboli i ekipit është thënja "Besa-Besë".',
+        'Ekipi kombëtar është formuar në vitin 2016.',
+        'Kosova është renditur rreth 117 në renditjen e fundit të FIFA-s.',
+        'Ndeshja më e mirë ishte fitorja 4-0 ndaj Qipros.',
+        'Ekipi ka shënuar shumë gola në ndeshje zyrtare.',
+        'Himni i Kombëtares së Kosovës është "Besa-Besë".',
+        'Stadiumi më i madh në Kosovë është Stadiumi Fadil Vokrri.',
+        'Trajneri aktual është Franco Foda.',
+        'Ngjyra e dytë e ekipit është e bardhë.',
+        'Fitorja e parë historike ishte ndaj Malit të Zi.',
+        'Lojtari më i ri është Lirim Kastrati.',
+        'Ndeshja më e vështirë ishte ndaj Anglisë.',
+        'Numri i tifozëve është rreth 10,000 në ndeshje mesatare.',
+        'Vendi i fundit ku ka luajtur Kosova ishte në Maqedoninë e Veriut.',
+        'Tradita më e njohur është përkrahja nga tifozët.',
+        'Organizata që mbështet futbollin në Kosovë është FFK.',
+        'Numri i titujve të fituar është 5 në nivel klubesh.',
+        'Lojtari që ka shënuar më shumë gola është Liridon Leci.',
+        'Ndihma më e madhe është mbështetja nga UEFA.',
+        'Klubi më i njohur është FC Prishtina.',
+        'Rivaliteti më i njohur është me Shqipërinë.',
+        'Forma më e njohur e lojës është futbolli 11 me 11.',
+        'Stadiumi që ka më shumë kapacitet është Stadiumi Fadil Vokrri.',
+        'Lojtari që luan në një ligë të njohur evropiane është Vedat Muriqi.',
+        'Sfida më e madhe është mungesa e infrastrukturës.',
+        'Viti kur Kosova u anëtarësua në FIFA ishte 2016.',
+        'Mënyra më e njohur e përgatitjes është stërvitja e rregullt.',
+        'Stili më i njohur i lojës është sulmi i shpejtë.',
+        'Numri i përgjithshëm i ndeshjeve të luajtura është mbi 50.',
+        'Lojtari që ka luajtur në ligën më të fortë është Lirim Kastrati.',
+        'Emri i presidentit të FFK-së është Agim Ademi.',
+      ];
+
+      let angryState = false;
+
+      function addMessage(message, isUser = true) {
+        const chatBox = document.getElementById('chat-box');
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', isUser ? 'user' : 'bot');
+
+        const img = document.createElement('img');
+        img.src = isUser ? 'images/user.png' : 'images/boti.png'; // Ensure these images exist
+        img.classList.add('message-img');
+
+        const textDiv = document.createElement('div');
+        textDiv.classList.add(isUser ? 'user-message' : 'bot-message');
+        textDiv.innerHTML = message;
+
+        messageDiv.appendChild(img);
+        messageDiv.appendChild(textDiv);
+        chatBox.appendChild(messageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+
+      function simulateBotResponse(response) {
+        const chatBox = document.getElementById('chat-box');
+        const typingIndicator = document.createElement('div');
+        typingIndicator.classList.add('typing-indicator');
+        typingIndicator.innerHTML = '<div></div><div></div><div></div>';
+
+        chatBox.appendChild(typingIndicator);
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        setTimeout(() => {
+          chatBox.removeChild(typingIndicator);
+          addMessage(response, false);
+          updateSuggestedQuestion(); // Show new suggestion after the answer
+        }, 2000);
+      }
+
+      function handleUserQuestion(userInput) {
+        const currentIndex = randomQuestions.findIndex((q) => q === userInput);
+
+        if (currentIndex !== -1) {
+          const correctAnswer = correctAnswers[currentIndex];
+          simulateBotResponse(correctAnswer);
+        } else {
+          angryState = true; // Set angry state
+          addMessage('Keni gabuar pytjen! Qasja nuk lejohet më.', false);
+          setTimeout(() => {
+            addMessage(
+              'Tinito është nervoz! Nuk e di përgjigjen e duhur.',
+              false
+            );
+          }, 2000);
+        }
+      }
+
+      function updateSuggestedQuestion() {
+        const suggestionBox = document.getElementById('suggestion-box');
+        suggestionBox.innerHTML = ''; // Clear previous suggestions
+
+        const randomIndex = Math.floor(Math.random() * randomQuestions.length);
+        const suggestionDiv = document.createElement('div');
+        suggestionDiv.innerText = randomQuestions[randomIndex]; // Suggest one question
+        suggestionDiv.classList.add('suggestion');
+        suggestionDiv.onclick = () => {
+          addMessage(suggestionDiv.innerText, true); // Simulate user asking the question
+          handleUserQuestion(suggestionDiv.innerText); // Check the answer
+        };
+        suggestionBox.appendChild(suggestionDiv);
+      }
+
+      // Initialize the first suggested question on load
+      document.addEventListener('DOMContentLoaded', () => {
+        updateSuggestedQuestion();
+      });
+
+      document.getElementById('send-button').onclick = () => {
+        const userInput = document.getElementById('user-input').value;
+        if (userInput) {
+          addMessage(userInput, true);
+          handleUserQuestion(userInput);
+          document.getElementById('user-input').value = ''; // Clear input
+        }
+      };
+    </script>
+  </body>
+</html>
